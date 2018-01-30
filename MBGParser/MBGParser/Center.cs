@@ -4,7 +4,7 @@ namespace MBGParser
     public struct Center
     {
         public Position<double> Position;
-        public Motion Motion;
+        public Motion<double> Motion;
 
         public string Events;
 
@@ -15,11 +15,11 @@ namespace MBGParser
             center.Position.X = double.Parse(Utils.ReadTo(ref content));
             center.Position.Y = double.Parse(Utils.ReadTo(ref content));
 
-            center.Motion.Speed = ValueWithRand.ParseFrom(Utils.ReadTo(ref content));
-            center.Motion.SpeedDirection = ValueWithRand.ParseFrom(Utils.ReadTo(ref content));
+            center.Motion.Speed = double.Parse(Utils.ReadTo(ref content));
+            center.Motion.SpeedDirection = double.Parse(Utils.ReadTo(ref content));
 
-            center.Motion.Acceleration = ValueWithRand.ParseFrom(Utils.ReadTo(ref content));
-            center.Motion.AccelerationDirection = ValueWithRand.ParseFrom(Utils.ReadTo(ref content));
+            center.Motion.Acceleration = double.Parse(Utils.ReadTo(ref content));
+            center.Motion.AccelerationDirection = double.Parse(Utils.ReadTo(ref content));
 
             center.Events = Utils.ReadTo(ref content);
 

@@ -37,8 +37,18 @@ Layer3:21312,13,13,0,0,0,0,0
 Layer4:empty
 ";
 
+            string test3 = @"Crazy Storm Data 1.01
+Center:315,240,12,34,56,78
+Totalframe:4000
+Layer1:2,123,123,0,0,0,0,0
+Layer2:32123,3123,3123,0,0,0,0,0
+Layer3:21312,13,13,0,0,0,0,0
+Layer4:empty
+";
+
             var data1 = MBGData.ParseFrom(test1);
             var data2 = MBGData.ParseFrom(test2);
+            var data3 = MBGData.ParseFrom(test3);
         }
     }
 }

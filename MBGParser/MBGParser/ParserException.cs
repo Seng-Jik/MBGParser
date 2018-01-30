@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MBGParser
 {
-    public struct Position<T>
-        where T : struct
+    class ParserException : Exception
     {
-        public T X, Y;
+        public ParserException(string msg) : base(msg)
+        { }
     }
 }

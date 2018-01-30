@@ -49,7 +49,7 @@ namespace MBGParser
                     Layer4 = Layer.ParseFrom(content, mbg);
                     break;
                 default:
-                    throw new Exception("未知的标签:" + title);
+                    throw new ParserException("未知的标签:" + title);
             }
         }
 
@@ -61,6 +61,9 @@ namespace MBGParser
             {
                 Version = mbg.ReadLine()
             };
+
+            if (data.Version != "Crazy Storm Data 1.01")
+                throw new ParserException("未知版本的CrazyStorm数据。");
 
             while (mbg.Peek() != -1)
             {

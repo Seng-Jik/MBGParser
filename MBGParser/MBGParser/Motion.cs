@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-#pragma warning disable 0169
-
 namespace MBGParser
 {
-    public struct Motion
+    public struct Motion<T>
+        where T : struct
     {
-        public ValueWithRand Speed, Acceleration;
-        public ValueWithRand SpeedDirection, AccelerationDirection;
+        public T Speed, Acceleration;
+        public T SpeedDirection, AccelerationDirection;
     }
 }
