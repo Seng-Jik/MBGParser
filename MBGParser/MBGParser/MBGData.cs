@@ -15,6 +15,8 @@ namespace MBGParser
 
         public Center? Center { get; set; }
 
+        public Layer Layer1, Layer2, Layer3, Layer4;
+
         public static MBGData ParseFrom(string mbgData)
         {
             var mbg = new StringReader(mbgData);
@@ -24,33 +26,48 @@ namespace MBGParser
                 Version = mbg.ReadLine()
             };
 
-            while(mbg.Peek() != -1)
+            Layer currentLayerBlock = null;
+            while (mbg.Peek() != -1)
             {
                 var content = mbg.ReadLine();
                 if(!string.IsNullOrEmpty(content))
                 {
                     var title = Utils.ReadTo(ref content, ':');
 
-                    if(title.Contains("Layer"))
+                    switch (title)
                     {
-                        throw new NotImplementedException("未实现图层的读取");
+                        case "Center":
+                            if (content == "False") data.Center = null;
+                            else
+                            {
+                                data.Center = MBGParser.Center.ParseFromContent(content);
+                            }
+                            break;
+                        case "Totalframe":
+                            data.TotalFrame = uint.Parse(content);
+                            break;
+
+                        case "Layer1":
+                            data.Layer1 = Layer.ParseFrom(content);
+                            currentLayerBlock = data.Layer1;
+                            break;
+                        case "Layer2":
+                            data.Layer2 = Layer.ParseFrom(content);
+                            currentLayerBlock = data.Layer2;
+                            break;
+                        case "Layer3":
+                            data.Layer3 = Layer.ParseFrom(content);
+                            currentLayerBlock = data.Layer3;
+                            break;
+                        case "Layer4":
+                            data.Layer4 = Layer.ParseFrom(content);
+                            currentLayerBlock = data.Layer4;
+                            break;
+                        default:
+                            currentLayerBlock._DebugStrings.Add(title + content);
+                            break;
                     }
-                    else
-                    {
-                        switch (title)
-                        {
-                            case "Center":
-                                if (content == "False") data.Center = null;
-                                else
-                                {
-                                    data.Center = MBGParser.Center.ParseFromContent(content);
-                                }
-                                break;
-                            case "Totalframe":
-                                data.TotalFrame = uint.Parse(content);
-                                break;
-                        }
-                    }
+                    
                 }
             }
 

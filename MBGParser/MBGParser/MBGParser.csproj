@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Center.cs" />
+    <Compile Include="Layer.cs" />
     <Compile Include="MBGData.cs" />
     <Compile Include="Motion.cs" />
     <Compile Include="Position.cs" />
