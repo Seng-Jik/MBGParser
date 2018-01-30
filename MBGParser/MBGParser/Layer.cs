@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace MBGParser
         public uint BeginFrame, LiveTime;
         public bool IsMainLayer;
 
+        public List<Component> Components;
         public List<string> _DebugStrings;
 
         public static Layer ParseFrom(string content)

@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-#pragma warning disable 0649
-
-namespace MBGParser
+namespace MBGParser.Components
 {
-    public struct Position<T>
+    class Mask : Component
     {
-        public T X, Y;
     }
 }

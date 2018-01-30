@@ -10,7 +10,7 @@ namespace MBGParser
 {
     public struct Motion
     {
-        public Value Speed, Acceleration;
-        public Value SpeedDirection, AccelerationDirection;
+        public ValueWithRand Speed, Acceleration;
+        public ValueWithRand SpeedDirection, AccelerationDirection;
     }
 }

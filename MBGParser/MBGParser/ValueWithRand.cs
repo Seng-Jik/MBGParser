@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace MBGParser
 {
-    public struct Value
+    public struct ValueWithRand
     {
         public double BaseValue;
         public double RandValue;
 
-        public static Value ParseFrom(string content)
+        public static ValueWithRand ParseFrom(string content)
         {
-            Value value;
+            ValueWithRand value;
             value.BaseValue = double.Parse(Utils.ReadTo(ref content, '+'));
             if (!string.IsNullOrEmpty(content))
                 value.RandValue = double.Parse(content);

@@ -13,11 +13,11 @@ namespace MBGParser
             center.Position.X = double.Parse(Utils.ReadTo(ref content));
             center.Position.Y = double.Parse(Utils.ReadTo(ref content));
 
-            center.Motion.Speed = Value.ParseFrom(Utils.ReadTo(ref content));
-            center.Motion.SpeedDirection = Value.ParseFrom(Utils.ReadTo(ref content));
+            center.Motion.Speed = ValueWithRand.ParseFrom(Utils.ReadTo(ref content));
+            center.Motion.SpeedDirection = ValueWithRand.ParseFrom(Utils.ReadTo(ref content));
 
-            center.Motion.Acceleration = Value.ParseFrom(Utils.ReadTo(ref content));
-            center.Motion.AccelerationDirection = Value.ParseFrom(Utils.ReadTo(ref content));
+            center.Motion.Acceleration = ValueWithRand.ParseFrom(Utils.ReadTo(ref content));
+            center.Motion.AccelerationDirection = ValueWithRand.ParseFrom(Utils.ReadTo(ref content));
 
             return center;
         }
