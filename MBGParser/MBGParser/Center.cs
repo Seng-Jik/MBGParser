@@ -3,7 +3,7 @@ namespace MBGParser
 {
     public struct Center
     {
-        public Position Position;
+        public Position<double> Position;
         public Motion Motion;
 
         public static Center ParseFromContent(string content)
