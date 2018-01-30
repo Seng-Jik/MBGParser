@@ -6,6 +6,8 @@ namespace MBGParser
         public Position<double> Position;
         public Motion Motion;
 
+        public string Events;
+
         public static Center ParseFromContent(string content)
         {
             Center center;
@@ -18,6 +20,8 @@ namespace MBGParser
 
             center.Motion.Acceleration = ValueWithRand.ParseFrom(Utils.ReadTo(ref content));
             center.Motion.AccelerationDirection = ValueWithRand.ParseFrom(Utils.ReadTo(ref content));
+
+            center.Events = Utils.ReadTo(ref content);
 
             return center;
         }
