@@ -41,12 +41,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Center.cs" />
-    <Compile Include="Components\BulletEmitter.cs" />
-    <Compile Include="Components\Component.cs" />
-    <Compile Include="Components\ForceField.cs" />
-    <Compile Include="Components\LazerEmitter.cs" />
-    <Compile Include="Components\Mask.cs" />
-    <Compile Include="Components\ReflexBoard.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="MBGData.cs" />
     <Compile Include="Motion.cs" />

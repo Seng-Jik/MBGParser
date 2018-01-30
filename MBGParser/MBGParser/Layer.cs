@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,12 +12,35 @@ namespace MBGParser
     {
         public string Name;
         public uint BeginFrame, LiveTime;
-        public bool IsMainLayer;
 
-        public List<Component> Components;
-        public List<string> _DebugStrings;
+        public uint
+            BulletEmitterCount,
+            LazerEmitterCount,
+            MaskEmitterCount,
+            ReflexBoardCount,
+            ForceFieldCount;
 
-        public static Layer ParseFrom(string content)
+        private List<string> _DebugStrings;
+
+        private void LoadContent(StringReader mbg)
+        {
+            for (uint i = 0; i < BulletEmitterCount; ++i)
+                _DebugStrings.Add(mbg.ReadLine());
+
+            for (uint i = 0; i < LazerEmitterCount; ++i)
+                _DebugStrings.Add(mbg.ReadLine());
+
+            for (uint i = 0; i < MaskEmitterCount; ++i)
+                _DebugStrings.Add(mbg.ReadLine());
+
+            for (uint i = 0; i < ReflexBoardCount; ++i)
+                _DebugStrings.Add(mbg.ReadLine());
+
+            for (uint i = 0; i < ForceFieldCount; ++i)
+                _DebugStrings.Add(mbg.ReadLine());
+        }
+
+        public static Layer ParseFrom(string content,StringReader mbg)
         {
             if (content == "empty")
                 return null;
@@ -26,9 +50,14 @@ namespace MBGParser
                 layer.Name = Utils.ReadTo(ref content);
                 layer.BeginFrame = uint.Parse(Utils.ReadTo(ref content));
                 layer.LiveTime = uint.Parse(Utils.ReadTo(ref content));
-                layer.IsMainLayer = uint.Parse(Utils.ReadTo(ref content)) > 0;
+                layer.BulletEmitterCount = uint.Parse(Utils.ReadTo(ref content));
+                layer.LazerEmitterCount = uint.Parse(Utils.ReadTo(ref content));
+                layer.MaskEmitterCount = uint.Parse(Utils.ReadTo(ref content));
+                layer.ReflexBoardCount = uint.Parse(Utils.ReadTo(ref content));
+                layer.ForceFieldCount = uint.Parse(Utils.ReadTo(ref content));
 
                 layer._DebugStrings = new List<string>();
+                layer.LoadContent(mbg);
                 return layer;
             }
         }

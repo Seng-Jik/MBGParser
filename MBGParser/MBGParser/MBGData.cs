@@ -17,6 +17,42 @@ namespace MBGParser
 
         public Layer Layer1, Layer2, Layer3, Layer4;
 
+        private void ProcessCenter(string content)
+        {
+            if (content == "False") Center = null;
+            else
+            {
+                Center = MBGParser.Center.ParseFromContent(content);
+            }
+        }
+
+        private void ProcessTitle(string title,string content,StringReader mbg)
+        {
+            switch (title)
+            {
+                case "Center":
+                    ProcessCenter(content);
+                    break;
+                case "Totalframe":
+                    TotalFrame = uint.Parse(content);
+                    break;
+                case "Layer1":
+                    Layer1 = Layer.ParseFrom(content, mbg);
+                    break;
+                case "Layer2":
+                    Layer2 = Layer.ParseFrom(content, mbg);
+                    break;
+                case "Layer3":
+                    Layer3 = Layer.ParseFrom(content, mbg);
+                    break;
+                case "Layer4":
+                    Layer4 = Layer.ParseFrom(content, mbg);
+                    break;
+                default:
+                    throw new Exception("未知的标签:" + title);
+            }
+        }
+
         public static MBGData ParseFrom(string mbgData)
         {
             var mbg = new StringReader(mbgData);
@@ -26,49 +62,13 @@ namespace MBGParser
                 Version = mbg.ReadLine()
             };
 
-            Layer currentLayerBlock = null;
             while (mbg.Peek() != -1)
             {
                 var content = mbg.ReadLine();
-                if(!string.IsNullOrEmpty(content))
-                {
-                    var title = Utils.ReadTo(ref content, ':');
 
-                    switch (title)
-                    {
-                        case "Center":
-                            if (content == "False") data.Center = null;
-                            else
-                            {
-                                data.Center = MBGParser.Center.ParseFromContent(content);
-                            }
-                            break;
-                        case "Totalframe":
-                            data.TotalFrame = uint.Parse(content);
-                            break;
+                var title = Utils.ReadTo(ref content, ':');
 
-                        case "Layer1":
-                            data.Layer1 = Layer.ParseFrom(content);
-                            currentLayerBlock = data.Layer1;
-                            break;
-                        case "Layer2":
-                            data.Layer2 = Layer.ParseFrom(content);
-                            currentLayerBlock = data.Layer2;
-                            break;
-                        case "Layer3":
-                            data.Layer3 = Layer.ParseFrom(content);
-                            currentLayerBlock = data.Layer3;
-                            break;
-                        case "Layer4":
-                            data.Layer4 = Layer.ParseFrom(content);
-                            currentLayerBlock = data.Layer4;
-                            break;
-                        default:
-                            currentLayerBlock._DebugStrings.Add(title + content);
-                            break;
-                    }
-                    
-                }
+                data.ProcessTitle(title, content, mbg);
             }
 
             return data;
