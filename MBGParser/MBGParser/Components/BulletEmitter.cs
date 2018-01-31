@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using static MBGParser.Utils;
+﻿using static MBGParser.Utils;
 
 namespace MBGParser.Components
 {
@@ -12,199 +6,200 @@ namespace MBGParser.Components
     {
         public uint
             ID,
-            LayerID;
+            层ID;
 
-        public string
-            BindingState;
+        public bool
+            绑定状态;
 
         public int
-            BindingID;
+            绑定ID;
 
-        public string
-            RelativeDirection;
+        public bool
+            相对方向;
 
         public Position<ValueWithRand>
-            Position;
+            位置坐标;
 
         public uint
-            Begin,
-            LifeTime;
+            起始,
+            持续;
 
         public Position<double>
-            ShootPosition;
+            发射坐标;
 
         public ValueWithRand
-            ShootRadius,
-            ShootRadiusAngle;
+            半径,
+            半径方向;
 
-        public string
-            RadiusAnglePosition;
-
-        public ValueWithRand
-            ShootWays,
-            ShootCycle;
+        public Position<double>
+            半径方向_坐标指定;
 
         public ValueWithRand
-            ShootAngle;
-
-        public string
-            ShootAnglePosition;
+            条数,
+            周期;
 
         public ValueWithRand
-            ShootRange;
+            发射角度;
+
+        public Position<double>
+            发射角度_坐标指定;
+
+        public ValueWithRand
+            范围;
 
         public Motion<ValueWithRand>
-            Motion;
+            发射器运动;
 
-        public string
-            MotionSpeedDirectionPosition,
-            MotionAccelerationPosition;
+        public Position<double>
+            速度方向_坐标指定,
+            加速度方向_坐标指定;
 
         public uint
-            BulletLifeTime,
-            BulletType;
+            子弹生命,
+            子弹类型;
 
         public double
-            BulletWideRatio,
-            BulletHeightRatio;
+            宽比,
+            高比;
 
         public Color<double>
-            BulletColor;
+            子弹颜色;
 
         public ValueWithRand
-            BulletOrientation;
+            朝向;
 
-        public string
-            BulletOrientationPosition;
+        public Position<double>
+            朝向_坐标指定;
 
-        public string
-            BulletOrientationEqualsSpeedAngle;
+        public bool
+            朝向与速度方向相同;
 
         public Motion<ValueWithRand>
-            BulletMotion;
+            子弹运动;
 
-        public string
-            BulletMotionSpeedDirectionPosition,
-            BulletMotionAccelerationPosition;
+        public Position<double>
+            子弹速度方向_坐标指定,
+            子弹加速度方向_坐标指定;
 
         public double
-            BulletHorizontalRatio,
-            BulletVerticalRatio;
+            横比,
+            纵比;
+
+        public bool
+            雾化效果,
+            消除效果,
+            高光效果,
+            拖影效果,
+            出屏即消,
+            无敌状态;
 
         public string
-            Fog,
-            FadeOut,
-            Hightlight,
-            MotionBlur,
-            KillWhenOutScreen,
-            Invicible;
+            发射器事件组,
+            子弹事件组;
 
-        public string
-            EmitterEventGroups,
-            BulletEventGroups,
-            Mask,ReflexBoard,ForceField,
-            DepthBindingState;
-
+        public bool
+            遮罩,
+            反弹板,
+            力场,
+            深度绑定;
 
         internal static BulletEmitter ParseFrom(string content)
         {
             BulletEmitter e;
             e.ID = ReadUInt(ref content);
-            e.LayerID = ReadUInt(ref content);
-            e.BindingState = ReadTo(ref content);
-            e.BindingID = ReadInt(ref content);
-            e.RelativeDirection = ReadTo(ref content);
-            ReadTo(ref content);
-            e.Position.X.BaseValue = ReadDouble(ref content);
-            e.Position.Y.BaseValue = ReadDouble(ref content);
-            e.Begin = ReadUInt(ref content);
-            e.LifeTime = ReadUInt(ref content);
-            e.ShootPosition.X = ReadDouble(ref content);
-            e.ShootPosition.Y = ReadDouble(ref content);
-            e.ShootRadius.BaseValue = ReadDouble(ref content);
-            e.ShootRadiusAngle.BaseValue = ReadDouble(ref content);
-            e.RadiusAnglePosition = ReadTo(ref content);
-            e.ShootWays.BaseValue = ReadDouble(ref content);
-            e.ShootCycle.BaseValue = ReadUInt(ref content);
-            e.ShootAngle.BaseValue = ReadDouble(ref content);
-            e.ShootAnglePosition = ReadTo(ref content);
-            e.ShootRange.BaseValue = ReadDouble(ref content);
+            e.层ID = ReadUInt(ref content);
+            e.绑定状态 = ReadBool(ref content);
+            e.绑定ID = ReadInt(ref content);
+            e.相对方向 = ReadBool(ref content);
+            ReadString(ref content);
+            e.位置坐标.X.BaseValue = ReadDouble(ref content);
+            e.位置坐标.Y.BaseValue = ReadDouble(ref content);
+            e.起始 = ReadUInt(ref content);
+            e.持续 = ReadUInt(ref content);
+            e.发射坐标.X = ReadDouble(ref content);
+            e.发射坐标.Y = ReadDouble(ref content);
+            e.半径.BaseValue = ReadDouble(ref content);
+            e.半径方向.BaseValue = ReadDouble(ref content);
+            e.半径方向_坐标指定 = ReadPosition(ref content);
+            e.条数.BaseValue = ReadDouble(ref content);
+            e.周期.BaseValue = ReadUInt(ref content);
+            e.发射角度.BaseValue = ReadDouble(ref content);
+            e.发射角度_坐标指定 = ReadPosition(ref content);
+            e.范围.BaseValue = ReadDouble(ref content);
 
-            e.Motion.Speed.BaseValue = ReadDouble(ref content);
-            e.Motion.SpeedDirection.BaseValue = ReadDouble(ref content);
-            e.MotionSpeedDirectionPosition = ReadTo(ref content);
-            e.Motion.Acceleration.BaseValue = ReadDouble(ref content);
-            e.Motion.AccelerationDirection.BaseValue = ReadDouble(ref content);
-            e.MotionAccelerationPosition = ReadTo(ref content);
+            e.发射器运动.Speed.BaseValue = ReadDouble(ref content);
+            e.发射器运动.SpeedDirection.BaseValue = ReadDouble(ref content);
+            e.速度方向_坐标指定 = ReadPosition(ref content);
+            e.发射器运动.Acceleration.BaseValue = ReadDouble(ref content);
+            e.发射器运动.AccelerationDirection.BaseValue = ReadDouble(ref content);
+            e.加速度方向_坐标指定 = ReadPosition(ref content);
 
-            e.BulletLifeTime = ReadUInt(ref content);
-            e.BulletType = ReadUInt(ref content);
+            e.子弹生命 = ReadUInt(ref content);
+            e.子弹类型 = ReadUInt(ref content);
 
-            e.BulletWideRatio = ReadDouble(ref content);
-            e.BulletHeightRatio = ReadDouble(ref content);
+            e.宽比 = ReadDouble(ref content);
+            e.高比 = ReadDouble(ref content);
 
-            e.BulletColor.R = ReadDouble(ref content);
-            e.BulletColor.G = ReadDouble(ref content);
-            e.BulletColor.B = ReadDouble(ref content);
-            e.BulletColor.A = ReadDouble(ref content);
+            e.子弹颜色.R = ReadDouble(ref content);
+            e.子弹颜色.G = ReadDouble(ref content);
+            e.子弹颜色.B = ReadDouble(ref content);
+            e.子弹颜色.A = ReadDouble(ref content);
 
-            e.BulletOrientation.BaseValue = ReadDouble(ref content);
-            e.BulletOrientationPosition = ReadTo(ref content);
-            e.BulletOrientationEqualsSpeedAngle = ReadTo(ref content);
+            e.朝向.BaseValue = ReadDouble(ref content);
+            e.朝向_坐标指定 = ReadPosition(ref content);
+            e.朝向与速度方向相同 = ReadBool(ref content);
 
-            e.BulletMotion.Speed.BaseValue = ReadDouble(ref content);
-            e.BulletMotion.SpeedDirection.BaseValue = ReadDouble(ref content);
-            e.BulletMotionSpeedDirectionPosition = ReadTo(ref content);
-            e.BulletMotion.Acceleration.BaseValue = ReadDouble(ref content);
-            e.BulletMotion.AccelerationDirection.BaseValue = ReadDouble(ref content);
-            e.BulletMotionAccelerationPosition = ReadTo(ref content);
+            e.子弹运动.Speed.BaseValue = ReadDouble(ref content);
+            e.子弹运动.SpeedDirection.BaseValue = ReadDouble(ref content);
+            e.子弹速度方向_坐标指定 = ReadPosition(ref content);
+            e.子弹运动.Acceleration.BaseValue = ReadDouble(ref content);
+            e.子弹运动.AccelerationDirection.BaseValue = ReadDouble(ref content);
+            e.子弹加速度方向_坐标指定 = ReadPosition(ref content);
 
-            e.BulletHorizontalRatio = ReadDouble(ref content);
-            e.BulletVerticalRatio = ReadDouble(ref content);
+            e.横比 = ReadDouble(ref content);
+            e.纵比 = ReadDouble(ref content);
 
+            e.雾化效果 = ReadBool(ref content);
+            e.消除效果 = ReadBool(ref content);
+            e.高光效果 = ReadBool(ref content);
+            e.拖影效果 = ReadBool(ref content);
+            e.出屏即消 = ReadBool(ref content);
+            e.无敌状态 = ReadBool(ref content);
 
-            e.Fog = ReadTo(ref content);
-            e.FadeOut = ReadTo(ref content);
-            e.Hightlight = ReadTo(ref content);
-            e.MotionBlur = ReadTo(ref content);
-            e.KillWhenOutScreen = ReadTo(ref content);
-            e.Invicible = ReadTo(ref content);
+            e.发射器事件组 = ReadString(ref content);
+            e.子弹事件组 = ReadString(ref content);
 
-            e.EmitterEventGroups = ReadTo(ref content);
-            e.BulletEventGroups = ReadTo(ref content);
+            e.位置坐标.X.RandValue = ReadDouble(ref content);
+            e.位置坐标.Y.RandValue = ReadDouble(ref content);
 
-            e.Position.X.RandValue = ReadDouble(ref content);
-            e.Position.Y.RandValue = ReadDouble(ref content);
+            e.半径.RandValue = ReadDouble(ref content);
+            e.半径方向.RandValue = ReadDouble(ref content);
 
-            e.ShootRadius.RandValue = ReadDouble(ref content);
-            e.ShootRadiusAngle.RandValue = ReadDouble(ref content);
+            e.条数.RandValue = ReadDouble(ref content);
+            e.周期.RandValue = ReadDouble(ref content);
 
-            e.ShootWays.RandValue = ReadDouble(ref content);
-            e.ShootCycle.RandValue = ReadDouble(ref content);
+            e.发射角度.RandValue = ReadDouble(ref content);
+            e.范围.RandValue = ReadDouble(ref content);
+            e.发射器运动.Speed.RandValue = ReadDouble(ref content);
+            e.发射器运动.SpeedDirection.RandValue = ReadDouble(ref content);
+            e.发射器运动.Acceleration.RandValue = ReadDouble(ref content);
+            e.发射器运动.AccelerationDirection.RandValue = ReadDouble(ref content);
+            e.朝向.RandValue = ReadDouble(ref content);
 
-            e.ShootAngle.RandValue = ReadDouble(ref content);
-            e.ShootRange.RandValue = ReadDouble(ref content);
-            e.Motion.Speed.RandValue = ReadDouble(ref content);
-            e.Motion.SpeedDirection.RandValue = ReadDouble(ref content);
-            e.Motion.Acceleration.RandValue = ReadDouble(ref content);
-            e.Motion.AccelerationDirection.RandValue = ReadDouble(ref content);
-            e.BulletOrientation.RandValue = ReadDouble(ref content);
+            e.子弹运动.Speed.RandValue = ReadDouble(ref content);
+            e.子弹运动.SpeedDirection.RandValue = ReadDouble(ref content);
+            e.子弹运动.Acceleration.RandValue = ReadDouble(ref content);
+            e.子弹运动.AccelerationDirection.RandValue = ReadDouble(ref content);
 
-            e.BulletMotion.Speed.RandValue = ReadDouble(ref content);
-            e.BulletMotion.SpeedDirection.RandValue = ReadDouble(ref content);
-            e.BulletMotion.Acceleration.RandValue = ReadDouble(ref content);
-            e.BulletMotion.AccelerationDirection.RandValue = ReadDouble(ref content);
+            e.遮罩 = ReadBool(ref content);
+            e.反弹板 = ReadBool(ref content);
+            e.力场 = ReadBool(ref content);
 
-            e.Mask = ReadTo(ref content);
-            e.ReflexBoard = ReadTo(ref content);
-            e.ForceField = ReadTo(ref content);
-
-            e.DepthBindingState = ReadTo(ref content);
+            e.深度绑定 = ReadBool(ref content);
 
             if (content != string.Empty)
                 throw new ParserException("发射器解析后剩余字符串：" + content);
 
-            
             return e;
         }
     }

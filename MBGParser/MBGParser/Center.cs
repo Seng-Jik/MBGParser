@@ -1,5 +1,4 @@
-﻿
-namespace MBGParser
+﻿namespace MBGParser
 {
     public struct Center
     {
@@ -12,16 +11,16 @@ namespace MBGParser
         {
             Center center;
 
-            center.Position.X = double.Parse(Utils.ReadTo(ref content));
-            center.Position.Y = double.Parse(Utils.ReadTo(ref content));
+            center.Position.X = double.Parse(Utils.ReadString(ref content));
+            center.Position.Y = double.Parse(Utils.ReadString(ref content));
 
-            center.Motion.Speed = double.Parse(Utils.ReadTo(ref content));
-            center.Motion.SpeedDirection = double.Parse(Utils.ReadTo(ref content));
+            center.Motion.Speed = double.Parse(Utils.ReadString(ref content));
+            center.Motion.SpeedDirection = double.Parse(Utils.ReadString(ref content));
 
-            center.Motion.Acceleration = double.Parse(Utils.ReadTo(ref content));
-            center.Motion.AccelerationDirection = double.Parse(Utils.ReadTo(ref content));
+            center.Motion.Acceleration = double.Parse(Utils.ReadString(ref content));
+            center.Motion.AccelerationDirection = double.Parse(Utils.ReadString(ref content));
 
-            center.Events = Utils.ReadTo(ref content);
+            center.Events = Utils.ReadString(ref content);
 
             return center;
         }

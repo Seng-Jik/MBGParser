@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace MBGParser
 {
@@ -26,28 +21,34 @@ namespace MBGParser
             }
         }
 
-        private void ProcessTitle(string title,string content,StringReader mbg)
+        private void ProcessTitle(string title, string content, StringReader mbg)
         {
             switch (title)
             {
                 case "Center":
                     ProcessCenter(content);
                     break;
+
                 case "Totalframe":
                     TotalFrame = uint.Parse(content);
                     break;
+
                 case "Layer1":
                     Layer1 = Layer.ParseFrom(content, mbg);
                     break;
+
                 case "Layer2":
                     Layer2 = Layer.ParseFrom(content, mbg);
                     break;
+
                 case "Layer3":
                     Layer3 = Layer.ParseFrom(content, mbg);
                     break;
+
                 case "Layer4":
                     Layer4 = Layer.ParseFrom(content, mbg);
                     break;
+
                 default:
                     throw new ParserException("未知的标签:" + title);
             }
@@ -70,14 +71,12 @@ namespace MBGParser
                 var content = mbg.ReadLine();
                 if (string.IsNullOrEmpty(content)) continue;
 
-                var title = Utils.ReadTo(ref content, ':');
+                var title = Utils.ReadString(ref content, ':');
 
                 data.ProcessTitle(title, content, mbg);
             }
 
             return data;
         }
-
-        
     }
 }
