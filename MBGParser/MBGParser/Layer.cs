@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MBGParser.Components;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -20,12 +21,15 @@ namespace MBGParser
             ReflexBoardCount,
             ForceFieldCount;
 
+        public List<BulletEmitter> BulletEmitters;
+
         private List<string> _DebugStrings;
 
         private void LoadContent(StringReader mbg)
         {
+            BulletEmitters = new List<BulletEmitter>();
             for (uint i = 0; i < BulletEmitterCount; ++i)
-                _DebugStrings.Add(mbg.ReadLine());
+                BulletEmitters.Add(BulletEmitter.ParseFrom(mbg.ReadLine()));
 
             for (uint i = 0; i < LazerEmitterCount; ++i)
                 _DebugStrings.Add(mbg.ReadLine());
@@ -40,7 +44,7 @@ namespace MBGParser
                 _DebugStrings.Add(mbg.ReadLine());
         }
 
-        public static Layer ParseFrom(string content,StringReader mbg)
+        internal static Layer ParseFrom(string content,StringReader mbg)
         {
             if (content == "empty")
                 return null;

@@ -8,7 +8,7 @@ namespace MBGParser
 
         public string Events;
 
-        public static Center ParseFromContent(string content)
+        internal static Center ParseFromContent(string content)
         {
             Center center;
 

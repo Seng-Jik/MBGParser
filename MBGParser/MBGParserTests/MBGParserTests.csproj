@@ -57,7 +57,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="MBGDataTests.cs" />
-    <Compile Include="MBGParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

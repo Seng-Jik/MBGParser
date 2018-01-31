@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace MBGParser
 {
-    public class ParserException : Exception
+    public struct Color<T>
     {
-        public ParserException(string msg) : base(msg)
-        { }
+        public T R, G, B, A;
     }
 }

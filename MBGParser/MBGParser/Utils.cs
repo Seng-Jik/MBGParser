@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace MBGParser
 {
-    public class Utils
+    internal class Utils
     {
-        public static string ReadTo(ref string line, char spliter = ',')
+        internal static string ReadTo(ref string line, char splitter = ',')
         {
-            var spl = line.IndexOf(spliter);
+            var spl = line.IndexOf(splitter);
             if (spl != -1)
             {
                 string ret = line.Substring(0, spl);
@@ -23,6 +23,21 @@ namespace MBGParser
                 line = "";
                 return ret;
             }
+        }
+
+        internal static uint ReadUInt(ref string line, char splitter = ',')
+        {
+            return uint.Parse(ReadTo(ref line, splitter));
+        }
+
+        internal static int ReadInt(ref string line, char splitter = ',')
+        {
+            return int.Parse(ReadTo(ref line, splitter));
+        }
+
+        internal static double ReadDouble(ref string line, char splitter = ',')
+        {
+            return double.Parse(ReadTo(ref line, splitter));
         }
     }
 }
