@@ -2,7 +2,7 @@
 
 namespace MBGParser
 {
-    public class MBGData
+    public sealed class MBGData
     {
         public string Version { get; set; }
 

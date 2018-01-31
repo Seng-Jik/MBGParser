@@ -43,6 +43,7 @@
     <Compile Include="Center.cs" />
     <Compile Include="Color.cs" />
     <Compile Include="Components\BulletEmitter.cs" />
+    <Compile Include="Components\ReflexBoard.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="MBGData.cs" />
     <Compile Include="Motion.cs" />

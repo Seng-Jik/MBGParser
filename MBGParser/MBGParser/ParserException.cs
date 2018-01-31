@@ -2,7 +2,7 @@
 
 namespace MBGParser
 {
-    public class ParserException : Exception
+    public sealed class ParserException : Exception
     {
         internal ParserException(string msg) : base(msg)
         { }
