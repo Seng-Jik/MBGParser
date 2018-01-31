@@ -43,7 +43,9 @@
     <Compile Include="Center.cs" />
     <Compile Include="Color.cs" />
     <Compile Include="Components\BulletEmitter.cs" />
+    <Compile Include="Components\ControlType.cs" />
     <Compile Include="Components\ForceField.cs" />
+    <Compile Include="Components\Mask.cs" />
     <Compile Include="Components\ReflexBoard.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="MBGData.cs" />

@@ -22,13 +22,7 @@ namespace MBGParser.Components
         public bool
             启用圆形;
 
-        public enum 控制范围类型
-        {
-            全部 = 0,
-            ID = 1
-        }
-
-        public 控制范围类型
+        public ControlType
             类型;
 
         public uint
@@ -61,7 +55,7 @@ namespace MBGParser.Components
             f.半宽 = ReadDouble(ref content);
             f.半高 = ReadDouble(ref content);
             f.启用圆形 = ReadBool(ref content);
-            f.类型 = (控制范围类型)ReadUInt(ref content);
+            f.类型 = (ControlType)ReadUInt(ref content);
             f.控制ID = ReadUInt(ref content);
             f.运动.Speed.BaseValue = ReadDouble(ref content);
             f.运动.SpeedDirection.BaseValue = ReadDouble(ref content);

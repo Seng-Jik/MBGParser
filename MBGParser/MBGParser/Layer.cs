@@ -19,6 +19,7 @@ namespace MBGParser
         public List<BulletEmitter> BulletEmitters;
         public List<ReflexBoard> ReflexBoards;
         public List<ForceField> ForceFields;
+        public List<Mask> Masks;
 
         private List<string> _DebugStrings;
 
@@ -31,8 +32,9 @@ namespace MBGParser
             for (uint i = 0; i < LazerEmitterCount; ++i)
                 _DebugStrings.Add(mbg.ReadLine());
 
+            Masks = new List<Mask>();
             for (uint i = 0; i < MaskEmitterCount; ++i)
-                _DebugStrings.Add(mbg.ReadLine());
+                Masks.Add(Mask.ParseFrom(mbg.ReadLine()));
 
             ReflexBoards = new List<ReflexBoard>();
             for (uint i = 0; i < ReflexBoardCount; ++i)
