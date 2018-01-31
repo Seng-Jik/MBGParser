@@ -18,6 +18,7 @@ namespace MBGParser
 
         public List<BulletEmitter> BulletEmitters;
         public List<ReflexBoard> ReflexBoards;
+        public List<ForceField> ForceFields;
 
         private List<string> _DebugStrings;
 
@@ -37,8 +38,9 @@ namespace MBGParser
             for (uint i = 0; i < ReflexBoardCount; ++i)
                 ReflexBoards.Add(ReflexBoard.ParseFrom(mbg.ReadLine()));
 
+            ForceFields = new List<ForceField>();
             for (uint i = 0; i < ForceFieldCount; ++i)
-                _DebugStrings.Add(mbg.ReadLine());
+                ForceFields.Add(ForceField.ParseFrom(mbg.ReadLine()));
         }
 
         internal static Layer ParseFrom(string content, StringReader mbg)
