@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using MBGParser.Event;
+using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace MBGParser
@@ -14,6 +16,8 @@ namespace MBGParser
         public Layer? Layer1, Layer2, Layer3, Layer4;
 
         public List<Sound> Sounds;
+
+        public List<GlobalEvents> GlobalEvents;
 
         private void ProcessNormalTitle(string title, string content, StringReader mbg)
         {
@@ -56,7 +60,18 @@ namespace MBGParser
                 return true;
             }
 
+            else if (title.Contains("GlobalEvents"))
+            {
+                GlobalEvents = Event.GlobalEvents.ParseEvents(title, mbg);
+                return true;
+            }
+
             return false;
+        }
+
+        private List<Sound> GlobalEvent(string title, StringReader mbg)
+        {
+            throw new NotImplementedException();
         }
 
         public static MBGData ParseFrom(string mbgData)

@@ -50,6 +50,7 @@
     <Compile Include="Event\DataOperateAction.cs" />
     <Compile Include="Event\EventGroup.cs" />
     <Compile Include="Event\Event.cs" />
+    <Compile Include="Event\GlobalEvents.cs" />
     <Compile Include="Event\IAction.cs" />
     <Compile Include="Event\ReflexBoardAction.cs" />
     <Compile Include="Layer.cs" />
