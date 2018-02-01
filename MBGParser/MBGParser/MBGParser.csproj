@@ -44,6 +44,7 @@
     <Compile Include="Components\LazerEmitter.cs" />
     <Compile Include="Components\Mask.cs" />
     <Compile Include="Components\ReflexBoard.cs" />
+    <Compile Include="Event\Condition.cs" />
     <Compile Include="Event\EventGroup.cs" />
     <Compile Include="Event\Event.cs" />
     <Compile Include="Layer.cs" />
