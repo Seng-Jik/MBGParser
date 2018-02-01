@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.IO;
 
 namespace MBGParser.Data.Tests
 {
@@ -50,6 +52,18 @@ Layer4:empty
             var data1 = MBGData.ParseFrom(test1);
             var data2 = MBGData.ParseFrom(test2);
             var data3 = MBGData.ParseFrom(test3);
+        }
+
+        [TestMethod()]
+        public void ExamplesTest()
+        {
+            var files = Directory.GetFiles("../../Example", "*.mbg");
+            var datas = new Dictionary<string,MBGData>();
+            foreach(var mbg in files)
+            {
+                var content = File.ReadAllText(mbg);
+                datas[mbg] = MBGData.ParseFrom(content);
+            }
         }
     }
 }
