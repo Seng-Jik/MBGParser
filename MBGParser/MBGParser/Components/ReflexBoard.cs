@@ -1,4 +1,5 @@
-﻿using static MBGParser.Utils;
+﻿using System.Collections.Generic;
+using static MBGParser.Utils;
 
 namespace MBGParser.Components
 {
@@ -25,7 +26,7 @@ namespace MBGParser.Components
         public Motion<ValueWithRand>
             运动;
 
-        public string
+        public List<Event.Event>
             碰撞事件组;
 
         internal static ReflexBoard ParseFrom(string content)
@@ -51,7 +52,7 @@ namespace MBGParser.Components
             r.运动.Acceleration.BaseValue = ReadDouble(ref content);
             r.运动.AccelerationDirection.BaseValue = ReadDouble(ref content);
 
-            r.碰撞事件组 = ReadString(ref content);
+            r.碰撞事件组 = Event.Event.ParseEvents(ReadString(ref content));
 
             r.运动.Speed.RandValue = ReadDouble(ref content);
             r.运动.SpeedDirection.RandValue = ReadDouble(ref content);

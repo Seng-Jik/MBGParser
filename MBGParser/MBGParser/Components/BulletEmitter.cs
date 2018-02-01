@@ -1,4 +1,6 @@
-﻿using static MBGParser.Utils;
+﻿using MBGParser.Event;
+using System.Collections.Generic;
+using static MBGParser.Utils;
 
 namespace MBGParser.Components
 {
@@ -93,7 +95,7 @@ namespace MBGParser.Components
             出屏即消,
             无敌状态;
 
-        public string
+        public List<EventGroup>
             发射器事件组,
             子弹事件组;
 
@@ -166,8 +168,8 @@ namespace MBGParser.Components
             e.出屏即消 = ReadBool(ref content);
             e.无敌状态 = ReadBool(ref content);
 
-            e.发射器事件组 = ReadString(ref content);
-            e.子弹事件组 = ReadString(ref content);
+            e.发射器事件组 = EventGroup.ParseEventGroups(ReadString(ref content));
+            e.子弹事件组 = EventGroup.ParseEventGroups(ReadString(ref content));
 
             e.位置坐标.X.RandValue = ReadDouble(ref content);
             e.位置坐标.Y.RandValue = ReadDouble(ref content);

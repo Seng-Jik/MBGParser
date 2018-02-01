@@ -1,4 +1,6 @@
-﻿using static MBGParser.Utils;
+﻿using MBGParser.Event;
+using System.Collections.Generic;
+using static MBGParser.Utils;
 
 namespace MBGParser.Components
 {
@@ -37,7 +39,7 @@ namespace MBGParser.Components
         public Position<double>
             加速度方向_坐标指定;
 
-        public string
+        public List<EventGroup>
             发射器事件组,
             子弹事件组;
 
@@ -71,8 +73,8 @@ namespace MBGParser.Components
             m.运动.AccelerationDirection.BaseValue = ReadDouble(ref content);
             m.加速度方向_坐标指定 = ReadPosition(ref content);
 
-            m.发射器事件组 = ReadString(ref content);
-            m.子弹事件组 = ReadString(ref content);
+            m.发射器事件组 = EventGroup.ParseEventGroups(ReadString(ref content));
+            m.子弹事件组 = EventGroup.ParseEventGroups(ReadString(ref content));
 
             m.运动.Speed.RandValue = ReadDouble(ref content);
             m.运动.SpeedDirection.RandValue = ReadDouble(ref content);
