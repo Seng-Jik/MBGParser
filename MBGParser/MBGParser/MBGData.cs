@@ -2,31 +2,22 @@
 
 namespace MBGParser
 {
-    public sealed class MBGData
+    public struct MBGData
     {
-        public string Version { get; set; }
+        public string Version;
 
-        public uint TotalFrame { get; set; }
+        public uint TotalFrame;
 
-        public Center? Center { get; set; }
+        public Center? Center;
 
-        public Layer Layer1, Layer2, Layer3, Layer4;
-
-        private void ProcessCenter(string content)
-        {
-            if (content == "False") Center = null;
-            else
-            {
-                Center = MBGParser.Center.ParseFromContent(content);
-            }
-        }
+        public Layer? Layer1, Layer2, Layer3, Layer4;
 
         private void ProcessTitle(string title, string content, StringReader mbg)
         {
             switch (title)
             {
                 case "Center":
-                    ProcessCenter(content);
+                    Center = MBGParser.Center.ParseFromContent(content);
                     break;
 
                 case "Totalframe":

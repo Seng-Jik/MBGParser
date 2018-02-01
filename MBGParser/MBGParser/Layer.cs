@@ -4,7 +4,7 @@ using System.IO;
 
 namespace MBGParser
 {
-    public sealed class Layer
+    public struct Layer
     {
         public string Name;
         public uint BeginFrame, LifeTime;
@@ -44,7 +44,7 @@ namespace MBGParser
                 ForceFields.Add(ForceField.ParseFrom(mbg.ReadLine()));
         }
 
-        internal static Layer ParseFrom(string content, StringReader mbg)
+        internal static Layer? ParseFrom(string content, StringReader mbg)
         {
             if (content == "empty")
                 return null;
