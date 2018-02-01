@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 
 namespace MBGParser
 {
@@ -12,7 +13,9 @@ namespace MBGParser
 
         public Layer? Layer1, Layer2, Layer3, Layer4;
 
-        private void ProcessTitle(string title, string content, StringReader mbg)
+        public List<Sound> Sounds;
+
+        private void ProcessNormalTitle(string title, string content, StringReader mbg)
         {
             switch (title)
             {
@@ -45,6 +48,17 @@ namespace MBGParser
             }
         }
 
+        private bool ProcessNumberTitle(string title,StringReader mbg)
+        {
+            if (title.Contains("Sounds"))
+            {
+                Sounds = Sound.ParseSounds(title, mbg);
+                return true;
+            }
+
+            return false;
+        }
+
         public static MBGData ParseFrom(string mbgData)
         {
             var mbg = new StringReader(mbgData);
@@ -64,7 +78,9 @@ namespace MBGParser
 
                 var title = Utils.ReadString(ref content, ':');
 
-                data.ProcessTitle(title, content, mbg);
+                var processed = data.ProcessNumberTitle(title, mbg);
+                if(!processed)
+                    data.ProcessNormalTitle(title, content, mbg);
             }
 
             return data;
