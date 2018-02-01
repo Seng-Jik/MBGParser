@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MBGParser.Event
+﻿namespace MBGParser.Event
 {
     public struct Condition
     {
@@ -25,11 +19,11 @@ namespace MBGParser.Event
             {
                 Expression e;
 
-                if (c.Contains('>'))
+                if (c.Contains(">"))
                     e.Operator = OpType.Greater;
-                else if (c.Contains('<'))
+                else if (c.Contains("<"))
                     e.Operator = OpType.Less;
-                else if (c.Contains('='))
+                else if (c.Contains("="))
                     e.Operator = OpType.Equals;
                 else
                     throw new ParserException("未能解析表达式");
@@ -61,8 +55,8 @@ namespace MBGParser.Event
         {
             SecondCondition.LogicOpType? op = null;
 
-            if (c.Contains('且')) op = SecondCondition.LogicOpType.And;
-            else if (c.Contains('或')) op = SecondCondition.LogicOpType.Or;
+            if (c.Contains("且")) op = SecondCondition.LogicOpType.And;
+            else if (c.Contains("或")) op = SecondCondition.LogicOpType.Or;
 
             Condition condition;
             if (op == null)
@@ -80,9 +74,6 @@ namespace MBGParser.Event
                     Expr = Expression.ParseFrom(exprs[1])
                 };
             }
-
-
-
 
             return condition;
         }

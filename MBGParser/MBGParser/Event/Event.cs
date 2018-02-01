@@ -18,7 +18,7 @@ namespace MBGParser.Event
 
         internal static List<Event> ParseEvents(string c)
         {
-            if (string.IsNullOrWhiteSpace(c))
+            if (string.IsNullOrEmpty(c.Trim()))
                 return null;
             else
             {
@@ -26,7 +26,7 @@ namespace MBGParser.Event
 
                 var events = c.Split(';');
 
-                foreach(var e in events)
+                foreach (var e in events)
                 {
                     if (!string.IsNullOrEmpty(e))
                         ret.Add(ParseFrom(e));

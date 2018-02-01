@@ -52,14 +52,13 @@ namespace MBGParser
             }
         }
 
-        private bool ProcessNumberTitle(string title,StringReader mbg)
+        private bool ProcessNumberTitle(string title, StringReader mbg)
         {
             if (title.Contains("Sounds"))
             {
                 Sounds = Sound.ParseSounds(title, mbg);
                 return true;
             }
-
             else if (title.Contains("GlobalEvents"))
             {
                 GlobalEvents = Event.GlobalEvents.ParseEvents(title, mbg);
@@ -94,7 +93,7 @@ namespace MBGParser
                 var title = Utils.ReadString(ref content, ':');
 
                 var processed = data.ProcessNumberTitle(title, mbg);
-                if(!processed)
+                if (!processed)
                     data.ProcessNormalTitle(title, content, mbg);
             }
 

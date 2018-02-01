@@ -13,7 +13,6 @@ namespace MBGParser
         {
             if (content == "False")
                 return null;
-
             else
             {
                 Center center;

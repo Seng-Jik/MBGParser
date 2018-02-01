@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static MBGParser.Utils;
 
 namespace MBGParser
@@ -27,9 +23,9 @@ namespace MBGParser
             return s;
         }
 
-        internal static List<Sound> ParseSounds(string title,StringReader mbg)
+        internal static List<Sound> ParseSounds(string title, StringReader mbg)
         {
-            var soundCount = uint.Parse(title.Substring(0,title.IndexOf("Sounds")).Trim());
+            var soundCount = uint.Parse(title.Substring(0, title.IndexOf("Sounds")).Trim());
             var ret = new List<Sound>();
             for (uint i = 0; i < soundCount; ++i)
                 ret.Add(ParseFrom(mbg.ReadLine()));

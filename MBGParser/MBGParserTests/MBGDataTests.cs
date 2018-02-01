@@ -64,8 +64,8 @@ Layer4:empty
         public void ExamplesTest()
         {
             var files = Directory.GetFiles("../../Example", "*.mbg");
-            var datas = new Dictionary<string,MBGData>();
-            foreach(var mbg in files)
+            var datas = new Dictionary<string, MBGData>();
+            foreach (var mbg in files)
             {
                 var content = File.ReadAllText(mbg);
                 datas[mbg] = MBGData.ParseFrom(content);

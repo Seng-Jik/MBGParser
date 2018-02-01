@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using static MBGParser.Event.DataOperateAction;
 
 namespace MBGParser.Event
@@ -22,14 +18,14 @@ namespace MBGParser.Event
 
         internal static List<ReflexBoardAction> ParseActions(string c)
         {
-            if (string.IsNullOrWhiteSpace(c))
+            if (string.IsNullOrEmpty(c.Trim()))
                 return null;
             else
             {
                 var ret = new List<ReflexBoardAction>();
                 var actions = c.Split('&');
                 foreach (var a in actions)
-                    if (!string.IsNullOrWhiteSpace(a))
+                    if (!string.IsNullOrEmpty(a.Trim()))
                         ret.Add(ParseFrom(a));
                 return ret;
             }
