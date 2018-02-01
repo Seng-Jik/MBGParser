@@ -9,39 +9,38 @@ namespace MBGParser
         public string Name;
         public uint BeginFrame, LifeTime;
 
-        public uint
-            BulletEmitterCount,
-            LazerEmitterCount,
-            MaskEmitterCount,
-            ReflexBoardCount,
-            ForceFieldCount;
-
         public List<BulletEmitter> BulletEmitters;
         public List<ReflexBoard> ReflexBoards;
         public List<ForceField> ForceFields;
         public List<Mask> Masks;
+        public List<LazerEmitter> LazerEmitters;
 
-        private List<string> _DebugStrings;
-
-        private void LoadContent(StringReader mbg)
+        private void LoadContent(
+            StringReader mbg,
+            uint bulletEmitterCount,
+            uint lazerEmitterCount,
+            uint maskEmitterCount,
+            uint reflexBoardCount,
+            uint forceFieldCount)
         {
             BulletEmitters = new List<BulletEmitter>();
-            for (uint i = 0; i < BulletEmitterCount; ++i)
+            for (uint i = 0; i < bulletEmitterCount; ++i)
                 BulletEmitters.Add(BulletEmitter.ParseFrom(mbg.ReadLine()));
 
-            for (uint i = 0; i < LazerEmitterCount; ++i)
-                _DebugStrings.Add(mbg.ReadLine());
+            LazerEmitters = new List<LazerEmitter>();
+            for (uint i = 0; i < lazerEmitterCount; ++i)
+                LazerEmitters.Add(LazerEmitter.ParseFrom(mbg.ReadLine()));
 
             Masks = new List<Mask>();
-            for (uint i = 0; i < MaskEmitterCount; ++i)
+            for (uint i = 0; i < maskEmitterCount; ++i)
                 Masks.Add(Mask.ParseFrom(mbg.ReadLine()));
 
             ReflexBoards = new List<ReflexBoard>();
-            for (uint i = 0; i < ReflexBoardCount; ++i)
+            for (uint i = 0; i < reflexBoardCount; ++i)
                 ReflexBoards.Add(ReflexBoard.ParseFrom(mbg.ReadLine()));
 
             ForceFields = new List<ForceField>();
-            for (uint i = 0; i < ForceFieldCount; ++i)
+            for (uint i = 0; i < forceFieldCount; ++i)
                 ForceFields.Add(ForceField.ParseFrom(mbg.ReadLine()));
         }
 
@@ -55,14 +54,20 @@ namespace MBGParser
                 layer.Name = Utils.ReadString(ref content);
                 layer.BeginFrame = uint.Parse(Utils.ReadString(ref content));
                 layer.LifeTime = uint.Parse(Utils.ReadString(ref content));
-                layer.BulletEmitterCount = uint.Parse(Utils.ReadString(ref content));
-                layer.LazerEmitterCount = uint.Parse(Utils.ReadString(ref content));
-                layer.MaskEmitterCount = uint.Parse(Utils.ReadString(ref content));
-                layer.ReflexBoardCount = uint.Parse(Utils.ReadString(ref content));
-                layer.ForceFieldCount = uint.Parse(Utils.ReadString(ref content));
+                var bulletEmitterCount = uint.Parse(Utils.ReadString(ref content));
+                var lazerEmitterCount = uint.Parse(Utils.ReadString(ref content));
+                var maskEmitterCount = uint.Parse(Utils.ReadString(ref content));
+                var reflexBoardCount = uint.Parse(Utils.ReadString(ref content));
+                var forceFieldCount = uint.Parse(Utils.ReadString(ref content));
 
-                layer._DebugStrings = new List<string>();
-                layer.LoadContent(mbg);
+                layer.LoadContent(
+                    mbg,
+                    bulletEmitterCount,
+                    lazerEmitterCount,
+                    maskEmitterCount,
+                    reflexBoardCount,
+                    forceFieldCount);
+
                 return layer;
             }
         }

@@ -86,7 +86,6 @@ namespace MBGParser.Components
                 throw new ParserException("遮罩解析后剩余字符串：" + content);
 
             return m;
-
         }
     }
 }

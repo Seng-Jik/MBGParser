@@ -1,6 +1,6 @@
 ﻿namespace MBGParser
 {
-    public static class Utils
+    internal static class Utils
     {
         internal static string ReadString(ref string line, char splitter = ',')
         {
