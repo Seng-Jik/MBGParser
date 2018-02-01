@@ -6,13 +6,13 @@ namespace MBGParser.Event
     public struct Event
     {
         public Condition Condition;
-        public string Action;
+        public IAction Action;
 
         internal static Event ParseFrom(string c)
         {
             Event e;
-            e.Action = c;
-            e.Condition = Condition.ParseFrom(ReadString(ref e.Action,'：'));
+            e.Condition = Condition.ParseFrom(ReadString(ref c, '：'));
+            e.Action = ActionHelper.ParseFrom(c);
             return e;
         }
 

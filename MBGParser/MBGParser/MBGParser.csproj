@@ -44,9 +44,14 @@
     <Compile Include="Components\LazerEmitter.cs" />
     <Compile Include="Components\Mask.cs" />
     <Compile Include="Components\ReflexBoard.cs" />
+    <Compile Include="Event\ActionHelper.cs" />
+    <Compile Include="Event\CommandAction.cs" />
     <Compile Include="Event\Condition.cs" />
+    <Compile Include="Event\DataOperateAction.cs" />
     <Compile Include="Event\EventGroup.cs" />
     <Compile Include="Event\Event.cs" />
+    <Compile Include="Event\IAction.cs" />
+    <Compile Include="Event\ReflexBoardAction.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="MBGData.cs" />
     <Compile Include="Motion.cs" />
