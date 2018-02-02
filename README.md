@@ -21,3 +21,13 @@ var mbgData = MBGData.Parse(mbgContent);
 
 以上两个版本的MBG，版本号标签均为：
 Crazy Storm Data 1.01
+
+## 协议特殊说明
+
+仅在以下情况下，本程序库的使用遵循MIT协议：
+嵌入至STG游戏
+
+在遵循此协议发布的游戏中应当包含MIT协议的License文件。
+
+其他任何情况均遵守GPL-2.0协议。
+
