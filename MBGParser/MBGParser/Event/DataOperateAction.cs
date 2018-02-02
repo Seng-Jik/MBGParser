@@ -55,10 +55,13 @@
 
             d.Times = null;
 
-            var timesL = sents[2].LastIndexOf('(') + 1;
+            var timesL = sents[2].LastIndexOf('(');
             var timesR = sents[2].LastIndexOf(')');
             if (timesL != -1 && timesR != -1)
+            {
+                timesL++;
                 d.Times = uint.Parse(sents[2].Substring(timesL, timesR - timesL));
+            }
 
             return d;
         }
