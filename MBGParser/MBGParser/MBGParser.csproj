@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MBGParser</RootNamespace>
     <AssemblyName>MBGParser</AssemblyName>
-    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="Center.cs" />
     <Compile Include="Color.cs" />
+    <Compile Include="Components\BindState.cs" />
     <Compile Include="Components\BulletEmitter.cs" />
     <Compile Include="Components\ControlType.cs" />
     <Compile Include="Components\ForceField.cs" />
@@ -54,8 +55,10 @@
     <Compile Include="Event\IAction.cs" />
     <Compile Include="Event\ReflexBoardAction.cs" />
     <Compile Include="Layer.cs" />
+    <Compile Include="Life.cs" />
     <Compile Include="MBGData.cs" />
     <Compile Include="Motion.cs" />
+    <Compile Include="MotionWithPosition.cs" />
     <Compile Include="ParserException.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Sound.cs" />

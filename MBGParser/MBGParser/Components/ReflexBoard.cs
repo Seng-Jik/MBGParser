@@ -13,9 +13,8 @@ namespace MBGParser.Components
         public Position<double>
             位置坐标;
 
-        public uint
-            起始,
-            持续;
+        public Life
+            生命;
 
         public double
             长度,
@@ -40,8 +39,8 @@ namespace MBGParser.Components
             r.位置坐标.X = ReadDouble(ref content);
             r.位置坐标.Y = ReadDouble(ref content);
 
-            r.起始 = ReadUInt(ref content);
-            r.持续 = ReadUInt(ref content);
+            r.生命.Begin = ReadUInt(ref content);
+            r.生命.LifeTime = ReadUInt(ref content);
 
             r.长度 = ReadDouble(ref content);
             r.角度 = ReadDouble(ref content);

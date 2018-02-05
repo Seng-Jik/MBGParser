@@ -13,7 +13,7 @@ namespace MBGParser
 
         public Center? Center;
 
-        public Layer? Layer1, Layer2, Layer3, Layer4;
+        public Layer Layer1, Layer2, Layer3, Layer4;
 
         public List<Sound> Sounds;
 

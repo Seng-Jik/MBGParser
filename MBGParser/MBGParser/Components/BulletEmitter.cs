@@ -1,30 +1,23 @@
 ﻿using MBGParser.Event;
+using System;
 using System.Collections.Generic;
 using static MBGParser.Utils;
 
 namespace MBGParser.Components
 {
-    public struct BulletEmitter
+    public class BulletEmitter : BindState.IBindable
     {
         public uint
             ID,
             层ID;
 
-        public bool
-            绑定状态;
-
-        public int
-            绑定ID;
-
-        public bool
-            相对方向;
+        public BindState 绑定状态;
 
         public Position<ValueWithRand>
             位置坐标;
 
-        public uint
-            起始,
-            持续;
+        public Life
+            生命;
 
         public Position<double>
             发射坐标;
@@ -49,12 +42,8 @@ namespace MBGParser.Components
         public ValueWithRand
             范围;
 
-        public Motion<ValueWithRand>
+        public MotionWithPosition<ValueWithRand,double>
             发射器运动;
-
-        public Position<double>
-            速度方向_坐标指定,
-            加速度方向_坐标指定;
 
         public uint
             子弹生命,
@@ -76,12 +65,8 @@ namespace MBGParser.Components
         public bool
             朝向与速度方向相同;
 
-        public Motion<ValueWithRand>
+        public MotionWithPosition<ValueWithRand,double>
             子弹运动;
-
-        public Position<double>
-            子弹速度方向_坐标指定,
-            子弹加速度方向_坐标指定;
 
         public double
             横比,
@@ -102,22 +87,21 @@ namespace MBGParser.Components
         public bool
             遮罩,
             反弹板,
-            力场,
-            深度绑定;
+            力场;
 
-        internal static BulletEmitter ParseFrom(string content)
+        internal static Tuple<BulletEmitter,Action> ParseFrom(string content,Layer layer)
         {
-            BulletEmitter e;
+            BulletEmitter e = new BulletEmitter();
             e.ID = ReadUInt(ref content);
             e.层ID = ReadUInt(ref content);
-            e.绑定状态 = ReadBool(ref content);
-            e.绑定ID = ReadInt(ref content);
-            e.相对方向 = ReadBool(ref content);
+            var 绑定状态 = ReadBool(ref content);   //CS里可能已经废弃
+            var 绑定ID = ReadInt(ref content);
+            var 相对方向 = ReadBool(ref content);
             ReadString(ref content);
             e.位置坐标.X.BaseValue = ReadDouble(ref content);
             e.位置坐标.Y.BaseValue = ReadDouble(ref content);
-            e.起始 = ReadUInt(ref content);
-            e.持续 = ReadUInt(ref content);
+            e.生命.Begin = ReadUInt(ref content);
+            e.生命.LifeTime = ReadUInt(ref content);
             e.发射坐标.X = ReadDouble(ref content);
             e.发射坐标.Y = ReadDouble(ref content);
             e.半径.BaseValue = ReadDouble(ref content);
@@ -129,12 +113,12 @@ namespace MBGParser.Components
             e.发射角度_坐标指定 = ReadPosition(ref content);
             e.范围.BaseValue = ReadDouble(ref content);
 
-            e.发射器运动.Speed.BaseValue = ReadDouble(ref content);
-            e.发射器运动.SpeedDirection.BaseValue = ReadDouble(ref content);
-            e.速度方向_坐标指定 = ReadPosition(ref content);
-            e.发射器运动.Acceleration.BaseValue = ReadDouble(ref content);
-            e.发射器运动.AccelerationDirection.BaseValue = ReadDouble(ref content);
-            e.加速度方向_坐标指定 = ReadPosition(ref content);
+            e.发射器运动.Motion.Speed.BaseValue = ReadDouble(ref content);
+            e.发射器运动.Motion.SpeedDirection.BaseValue = ReadDouble(ref content);
+            e.发射器运动.SpeedDirectionPosition = ReadPosition(ref content);
+            e.发射器运动.Motion.Acceleration.BaseValue = ReadDouble(ref content);
+            e.发射器运动.Motion.AccelerationDirection.BaseValue = ReadDouble(ref content);
+            e.发射器运动.AccelerationDirectionPosition = ReadPosition(ref content);
 
             e.子弹生命 = ReadUInt(ref content);
             e.子弹类型 = ReadUInt(ref content);
@@ -151,12 +135,12 @@ namespace MBGParser.Components
             e.朝向_坐标指定 = ReadPosition(ref content);
             e.朝向与速度方向相同 = ReadBool(ref content);
 
-            e.子弹运动.Speed.BaseValue = ReadDouble(ref content);
-            e.子弹运动.SpeedDirection.BaseValue = ReadDouble(ref content);
-            e.子弹速度方向_坐标指定 = ReadPosition(ref content);
-            e.子弹运动.Acceleration.BaseValue = ReadDouble(ref content);
-            e.子弹运动.AccelerationDirection.BaseValue = ReadDouble(ref content);
-            e.子弹加速度方向_坐标指定 = ReadPosition(ref content);
+            e.子弹运动.Motion.Speed.BaseValue = ReadDouble(ref content);
+            e.子弹运动.Motion.SpeedDirection.BaseValue = ReadDouble(ref content);
+            e.子弹运动.SpeedDirectionPosition = ReadPosition(ref content);
+            e.子弹运动.Motion.Acceleration.BaseValue = ReadDouble(ref content);
+            e.子弹运动.Motion.AccelerationDirection.BaseValue = ReadDouble(ref content);
+            e.子弹运动.AccelerationDirectionPosition = ReadPosition(ref content);
 
             e.横比 = ReadDouble(ref content);
             e.纵比 = ReadDouble(ref content);
@@ -182,27 +166,46 @@ namespace MBGParser.Components
 
             e.发射角度.RandValue = ReadDouble(ref content);
             e.范围.RandValue = ReadDouble(ref content);
-            e.发射器运动.Speed.RandValue = ReadDouble(ref content);
-            e.发射器运动.SpeedDirection.RandValue = ReadDouble(ref content);
-            e.发射器运动.Acceleration.RandValue = ReadDouble(ref content);
-            e.发射器运动.AccelerationDirection.RandValue = ReadDouble(ref content);
+            e.发射器运动.Motion.Speed.RandValue = ReadDouble(ref content);
+            e.发射器运动.Motion.SpeedDirection.RandValue = ReadDouble(ref content);
+            e.发射器运动.Motion.Acceleration.RandValue = ReadDouble(ref content);
+            e.发射器运动.Motion.AccelerationDirection.RandValue = ReadDouble(ref content);
             e.朝向.RandValue = ReadDouble(ref content);
 
-            e.子弹运动.Speed.RandValue = ReadDouble(ref content);
-            e.子弹运动.SpeedDirection.RandValue = ReadDouble(ref content);
-            e.子弹运动.Acceleration.RandValue = ReadDouble(ref content);
-            e.子弹运动.AccelerationDirection.RandValue = ReadDouble(ref content);
+            e.子弹运动.Motion.Speed.RandValue = ReadDouble(ref content);
+            e.子弹运动.Motion.SpeedDirection.RandValue = ReadDouble(ref content);
+            e.子弹运动.Motion.Acceleration.RandValue = ReadDouble(ref content);
+            e.子弹运动.Motion.AccelerationDirection.RandValue = ReadDouble(ref content);
 
             e.遮罩 = ReadBool(ref content);
             e.反弹板 = ReadBool(ref content);
             e.力场 = ReadBool(ref content);
 
-            e.深度绑定 = ReadBool(ref content);
+            var 深度绑定 = ReadBool(ref content);
+
+            Action binder = ()=> { };
+            
+            if(绑定ID != -1)
+                binder = () =>
+                    e.绑定状态 = layer.FindBulletEmitterByID(绑定ID).Bind(e,深度绑定,相对方向);
+            
 
             if (content != string.Empty)
                 throw new ParserException("发射器解析后剩余字符串：" + content);
 
-            return e;
+            return Tuple.Create(e,binder);
+        }
+
+        internal BindState Bind(BindState.IBindable bindable,bool depth,bool relative)
+        {
+            var state = new BindState()
+            {
+                Child = bindable,
+                Parent = this,
+                Depth = depth,
+                Relative = relative
+            };
+            return state;
         }
     }
 }

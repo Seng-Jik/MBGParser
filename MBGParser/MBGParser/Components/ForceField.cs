@@ -11,9 +11,8 @@ namespace MBGParser.Components
         public Position<double>
             位置坐标;
 
-        public uint
-            起始,
-            持续;
+        public Life
+            生命;
 
         public double
             半宽,
@@ -50,8 +49,8 @@ namespace MBGParser.Components
             f.层ID = ReadUInt(ref content);
             f.位置坐标.X = ReadDouble(ref content);
             f.位置坐标.Y = ReadDouble(ref content);
-            f.起始 = ReadUInt(ref content);
-            f.持续 = ReadUInt(ref content);
+            f.生命.Begin = ReadUInt(ref content);
+            f.生命.LifeTime = ReadUInt(ref content);
             f.半宽 = ReadDouble(ref content);
             f.半高 = ReadDouble(ref content);
             f.启用圆形 = ReadBool(ref content);

@@ -1,13 +1,14 @@
 ﻿using MBGParser.Components;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
 namespace MBGParser
 {
-    public struct Layer
+    public class Layer
     {
         public string Name;
-        public uint BeginFrame, LifeTime;
+        public Life Life;
 
         public List<BulletEmitter> BulletEmitters;
         public List<ReflexBoard> ReflexBoards;
@@ -23,17 +24,32 @@ namespace MBGParser
             uint reflexBoardCount,
             uint forceFieldCount)
         {
+            var linkers = new List<Action>();
+
             BulletEmitters = new List<BulletEmitter>();
             for (uint i = 0; i < bulletEmitterCount; ++i)
-                BulletEmitters.Add(BulletEmitter.ParseFrom(mbg.ReadLine()));
+            {
+                var result = BulletEmitter.ParseFrom(mbg.ReadLine(), this);
+                linkers.Add(result.Item2);
+                BulletEmitters.Add(result.Item1);
+            }
+
 
             LazerEmitters = new List<LazerEmitter>();
             for (uint i = 0; i < lazerEmitterCount; ++i)
-                LazerEmitters.Add(LazerEmitter.ParseFrom(mbg.ReadLine()));
+            {
+                var result = LazerEmitter.ParseFrom(mbg.ReadLine(),this);
+                linkers.Add(result.Item2);
+                LazerEmitters.Add(result.Item1);
+            }
 
             Masks = new List<Mask>();
             for (uint i = 0; i < maskEmitterCount; ++i)
-                Masks.Add(Mask.ParseFrom(mbg.ReadLine()));
+            {
+                var result = Mask.ParseFrom(mbg.ReadLine(),this);
+                linkers.Add(result.Item2);
+                Masks.Add(result.Item1);
+            }
 
             ReflexBoards = new List<ReflexBoard>();
             for (uint i = 0; i < reflexBoardCount; ++i)
@@ -42,9 +58,20 @@ namespace MBGParser
             ForceFields = new List<ForceField>();
             for (uint i = 0; i < forceFieldCount; ++i)
                 ForceFields.Add(ForceField.ParseFrom(mbg.ReadLine()));
+
+            foreach (var l in linkers)
+                l();
         }
 
-        internal static Layer? ParseFrom(string content, StringReader mbg)
+        internal BulletEmitter FindBulletEmitterByID(int id)
+        {
+            foreach (var i in BulletEmitters)
+                if (i.ID == id)
+                    return i;
+            throw new ParserException("找不到子弹发射器" + id);
+        }
+
+        internal static Layer ParseFrom(string content, StringReader mbg)
         {
             if (content == "empty")
                 return null;
@@ -52,8 +79,8 @@ namespace MBGParser
             {
                 Layer layer = new Layer();
                 layer.Name = Utils.ReadString(ref content);
-                layer.BeginFrame = uint.Parse(Utils.ReadString(ref content));
-                layer.LifeTime = uint.Parse(Utils.ReadString(ref content));
+                layer.Life.Begin = uint.Parse(Utils.ReadString(ref content));
+                layer.Life.LifeTime = uint.Parse(Utils.ReadString(ref content));
                 var bulletEmitterCount = uint.Parse(Utils.ReadString(ref content));
                 var lazerEmitterCount = uint.Parse(Utils.ReadString(ref content));
                 var maskEmitterCount = uint.Parse(Utils.ReadString(ref content));
