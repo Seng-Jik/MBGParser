@@ -4,7 +4,7 @@
     {
         internal static string ReadString(ref string line, char splitter = ',')
         {
-            if (string.IsNullOrEmpty(line))
+            if (string.IsNullOrWhiteSpace(line))
                 throw new ParserException("无法从空字符串读取信息。");
 
             var spl = line.IndexOf(splitter);

@@ -25,7 +25,7 @@ namespace MBGParser.Event
 
         internal static List<EventGroup> ParseEventGroups(string c)
         {
-            if (string.IsNullOrEmpty(c))
+            if (string.IsNullOrWhiteSpace(c))
             {
                 return null;
             }
@@ -35,7 +35,7 @@ namespace MBGParser.Event
                 var egs = c.Split('&');
                 foreach (var i in egs)
                 {
-                    if (!string.IsNullOrEmpty(i))
+                    if (!string.IsNullOrWhiteSpace(i))
                         ret.Add(ParseFrom(i));
                 }
                 return ret;

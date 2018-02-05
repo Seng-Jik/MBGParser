@@ -88,7 +88,7 @@ namespace MBGParser
             while (mbg.Peek() != -1)
             {
                 var content = mbg.ReadLine();
-                if (string.IsNullOrEmpty(content)) continue;
+                if (string.IsNullOrWhiteSpace(content)) continue;
 
                 var title = Utils.ReadString(ref content, ':');
 

@@ -18,14 +18,14 @@ namespace MBGParser.Event
 
         internal static List<ReflexBoardAction> ParseActions(string c)
         {
-            if (string.IsNullOrEmpty(c.Trim()))
+            if (string.IsNullOrWhiteSpace(c))
                 return null;
             else
             {
                 var ret = new List<ReflexBoardAction>();
                 var actions = c.Split('&');
                 foreach (var a in actions)
-                    if (!string.IsNullOrEmpty(a.Trim()))
+                    if (!string.IsNullOrWhiteSpace(a))
                         ret.Add(ParseFrom(a));
                 return ret;
             }
