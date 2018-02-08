@@ -33,3 +33,7 @@ Crazy Storm Data 1.01
 
 其他任何情况均遵守GPL-2.0协议。
 
+## 本库的其他版本
+[Lua版本](https://github.com/Xrysnow/MBGParser) 作者：[Xrysnow](https://github.com/Xrysnow)
+
+感谢以上作者的辛勤付出。
