@@ -35,6 +35,5 @@ Crazy Storm Data 1.01
 
 ## 本库的其他版本
 [Lua版本](https://github.com/Xrysnow/MBGParser) 作者：[Xrysnow](https://github.com/Xrysnow)
-
 [Java版本](https://github.com/cn-s3bit/TH902/tree/master/MBGParser) 作者：[strongrex2001](https://github.com/strongrex2001)
 感谢以上作者的辛勤付出。
