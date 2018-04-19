@@ -33,7 +33,7 @@ namespace MBGParser.Components
         public uint
             控制ID;
 
-        public MotionWithPosition<ValueWithRand,double>
+        public MotionWithPosition<NoisedValue,double>
             运动;
 
         public List<EventGroup>

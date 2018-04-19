@@ -13,36 +13,36 @@ namespace MBGParser.Components
 
         public BindState 绑定状态;
 
-        public Position<ValueWithRand>
+        public Position<double>
             位置坐标;
 
         public Life
             生命;
 
-        public Position<double>
+        public Position<NoisedValue>
             发射坐标;
 
-        public ValueWithRand
+        public NoisedValue
             半径,
             半径方向;
 
         public Position<double>
             半径方向_坐标指定;
 
-        public ValueWithRand
+        public NoisedValue
             条数,
             周期;
 
-        public ValueWithRand
+        public NoisedValue
             发射角度;
 
         public Position<double>
             发射角度_坐标指定;
 
-        public ValueWithRand
+        public NoisedValue
             范围;
 
-        public MotionWithPosition<ValueWithRand,double>
+        public MotionWithPosition<NoisedValue,double>
             发射器运动;
 
         public uint
@@ -56,7 +56,7 @@ namespace MBGParser.Components
         public Color<double>
             子弹颜色;
 
-        public ValueWithRand
+        public NoisedValue
             朝向;
 
         public Position<double>
@@ -65,7 +65,7 @@ namespace MBGParser.Components
         public bool
             朝向与速度方向相同;
 
-        public MotionWithPosition<ValueWithRand,double>
+        public MotionWithPosition<NoisedValue,double>
             子弹运动;
 
         public double
@@ -98,12 +98,12 @@ namespace MBGParser.Components
             var 绑定ID = ReadInt(ref content);
             var 相对方向 = ReadBool(ref content);
             ReadString(ref content);
-            e.位置坐标.X.BaseValue = ReadDouble(ref content);
-            e.位置坐标.Y.BaseValue = ReadDouble(ref content);
+            e.位置坐标.X = ReadDouble(ref content);
+            e.位置坐标.Y = ReadDouble(ref content);
             e.生命.Begin = ReadUInt(ref content);
             e.生命.LifeTime = ReadUInt(ref content);
-            e.发射坐标.X = ReadDouble(ref content);
-            e.发射坐标.Y = ReadDouble(ref content);
+            e.发射坐标.X.BaseValue = ReadDouble(ref content);
+            e.发射坐标.Y.BaseValue = ReadDouble(ref content);
             e.半径.BaseValue = ReadDouble(ref content);
             e.半径方向.BaseValue = ReadDouble(ref content);
             e.半径方向_坐标指定 = ReadPosition(ref content);
@@ -155,8 +155,8 @@ namespace MBGParser.Components
             e.发射器事件组 = EventGroup.ParseEventGroups(ReadString(ref content));
             e.子弹事件组 = EventGroup.ParseEventGroups(ReadString(ref content));
 
-            e.位置坐标.X.RandValue = ReadDouble(ref content);
-            e.位置坐标.Y.RandValue = ReadDouble(ref content);
+            e.发射坐标.X.RandValue = ReadDouble(ref content);
+            e.发射坐标.Y.RandValue = ReadDouble(ref content);
 
             e.半径.RandValue = ReadDouble(ref content);
             e.半径方向.RandValue = ReadDouble(ref content);

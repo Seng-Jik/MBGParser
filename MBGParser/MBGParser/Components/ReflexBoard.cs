@@ -23,7 +23,7 @@ namespace MBGParser.Components
         public uint
             次数;
 
-        public Motion<ValueWithRand>
+        public Motion<NoisedValue>
             运动;
 
         public List<ReflexBoardAction>

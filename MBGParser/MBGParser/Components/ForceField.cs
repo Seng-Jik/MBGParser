@@ -27,7 +27,7 @@ namespace MBGParser.Components
         public uint
             控制ID;
 
-        public Motion<ValueWithRand>
+        public Motion<NoisedValue>
             运动;
 
         public double

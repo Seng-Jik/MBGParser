@@ -19,27 +19,27 @@ namespace MBGParser.Components
         public Life
             生命;
 
-        public ValueWithRand
+        public NoisedValue
             半径,
             半径方向;
 
         public Position<double>
             半径方向_坐标指定;
 
-        public ValueWithRand
+        public NoisedValue
             条数,
             周期;
 
-        public ValueWithRand
+        public NoisedValue
             发射角度;
 
         public Position<double>
             发射角度_坐标指定;
 
-        public ValueWithRand
+        public NoisedValue
             范围;
 
-        public MotionWithPosition<ValueWithRand,double>
+        public MotionWithPosition<NoisedValue,double>
             发射器运动;
 
         public uint
@@ -55,7 +55,7 @@ namespace MBGParser.Components
         public double
             不透明度;
 
-        public MotionWithPosition<ValueWithRand,double>
+        public MotionWithPosition<NoisedValue,double>
             子弹运动;
 
         public double

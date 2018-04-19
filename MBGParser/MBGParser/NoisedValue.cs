@@ -1,6 +1,6 @@
 ﻿namespace MBGParser
 {
-    public struct ValueWithRand
+    public struct NoisedValue
     {
         public double BaseValue;
         public double RandValue;

@@ -1,4 +1,4 @@
-# MBGParser
+﻿# MBGParser
 CrazyStrom 1.03 Data Parser
 
 ## 使用
@@ -22,16 +22,10 @@ var mbgData = MBGData.Parse(mbgContent);
 以上两个版本的MBG，版本号标签均为：
 Crazy Storm Data 1.01
 
-## 协议特殊说明
-
-仅在以下情况下，本程序库的使用遵循MIT协议：
-
-嵌入至STG游戏（无论该游戏是商业游戏还是同人游戏，以及是否免费），
-利用本程序库编写MBG到另一格式的弹幕转换器
-
-在遵循此协议发布的游戏中应当包含MIT协议的License文件。
-
-其他任何情况均遵守GPL-2.0协议。
+## 测试样例说明
+测试样例来自于CrazyStorm自带的样例，对其使用1.03i版本重新保存的版本。
+这些测试样例不属于本软件的一部分，不遵守本软件所使用的协议。
+测试样例的著作权归其原作者所有，你在使用本库时不应该将其包含进去。
 
 ## 本库的其他版本
 [Lua版本](https://github.com/Xrysnow/MBGParser) 作者：[Xrysnow](https://github.com/Xrysnow)
